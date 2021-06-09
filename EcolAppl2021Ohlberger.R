@@ -11,7 +11,7 @@ invisible(lapply(pkgs,library,character.only=T))
 ##========================================================================##
 ##===================================================================## data
 ##========================================================================##
-## cod data from ICES reports of the Arctic Fisheries Working Group (AFWG) 
+#cod data from ICES 2020 report of the Arctic Fisheries Working Group (AFWG)
 
 ##======================================================## age-specific data
 ages<-seq(3,14,1)
@@ -72,14 +72,6 @@ for(y in 2:dim(MaA)[1]) {
   }
   data$pRepeat[y]<-sum(repeat_a,na.rm=T)/SpBio[y]
 } 
-
-##====================================================## compare age metrics
-testcovars<-c("MeanAge","MeanWeight","AgeDiv","pRepeat")
-testdata<-data[,names(data) %in% testcovars]
-test<-apply(testdata,2,function(x) as.numeric(as.character(x)))
-res<-Hmisc::rcorr(test,type="pearson")
-out<-res$r ## all pairwise correlations
-diag(out)<-NA
 
 ##===========================================================## recruits/SSB
 ## 'Recruitment' by sampling year; 'Recruits' by spawn year
@@ -186,7 +178,7 @@ aics$delta<-round(aics$AICc-min(aics$AICc),4)
 rownames(aics)[aics$delta==0] ## choose simpler model without weights 
 
 ##===================## AIC with penalty for selecting interaction threshold
-## Ottersen et al 2013: set k=2 (penalty per parameter) by default and penalty for extra parameter: k=2+1/n, where n = number of covariates
+## (Ottersen et al 2013)
 nmod<-dim(data.frame(mod_select_ar1))[1]
 myAICc<-NA
 for(i in 1:nmod) { 
@@ -269,8 +261,7 @@ for(i in 1:nM) {
 nMod<-length(test_forms)
 ##------------------------------------## randomly sample train and test data
 nS<-1e3 ## (~1 minute per 100 samples)
-seeds<-sample(seq(1e6),1e4) ## random
-# seeds<-seq(1e4) ## reproducible
+seeds<-sample(seq(1e6),1e4)
 RMSE<-array(dim=c(nS,nMod))
 formulas<-list()
 start<-Sys.time()
