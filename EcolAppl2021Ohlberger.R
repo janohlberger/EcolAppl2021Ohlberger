@@ -1,6 +1,6 @@
 ##========================================================================##
 ##                                                                        ##
-##  Code for analyses in Ohlberger et al. 2021 Ecological Applications   ##
+##   Code for analyses in Ohlberger et al. 2021 Ecological Applications   ##
 ##                                                                        ##
 ##========================================================================##
 pkgs<-c("readxl","tidyverse","visreg","MuMIn","nlme","vegan","performance", "akima","Hmisc") 
